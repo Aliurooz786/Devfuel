@@ -35,6 +35,8 @@ analysis/
 reports/
 proof/
 logs/
+!frontend/src/features/logs/
+!frontend/src/features/logs/**
 
 # Local databases
 *.sqlite

@@ -9,6 +9,8 @@ export type EventType =
   | 'NOTE'
   | 'UNKNOWN'
 
+export type EventTimePrecision = 'NOW' | 'EXACT' | 'PERIOD' | 'DAY' | 'UNRESOLVED'
+
 export interface CreateLogRequest {
   message: string
   source?: string
@@ -24,6 +26,11 @@ export interface CreateLogResponse {
   parserVersion: string
   timestamp: string
   imageRef?: string | null
+  loggedAt?: string
+  eventTimePrecision?: EventTimePrecision
+  eventTimezone?: string
+  backdated?: boolean
+  loggedLater?: boolean
 }
 
 export interface LogItemResponse {
@@ -35,6 +42,11 @@ export interface LogItemResponse {
   source: string
   parserVersion: string
   imageRef?: string | null
+  loggedAt?: string
+  eventTimePrecision?: EventTimePrecision
+  eventTimezone?: string
+  backdated?: boolean
+  loggedLater?: boolean
 }
 
 export interface ErrorResponse {
