@@ -1,5 +1,6 @@
 package com.devfuel.log.dto;
 
+import com.devfuel.common.EventTimePrecision;
 import com.devfuel.common.EventType;
 
 import java.time.Instant;
@@ -15,6 +16,11 @@ public record CreateLogResponse(
         String source,
         String parserVersion,
         Instant timestamp,
-        String imageRef
+        String imageRef,
+        Instant loggedAt,
+        EventTimePrecision eventTimePrecision,
+        String eventTimezone,
+        boolean backdated,
+        boolean loggedLater
 ) {
 }

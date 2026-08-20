@@ -10,13 +10,13 @@ import java.util.UUID;
 
 public interface EventLogRepository extends JpaRepository<EventLog, UUID> {
 
-    List<EventLog> findAllByOrderByEventTimestampDescCreatedAtDesc();
+    List<EventLog> findAllByOrderByEventTimestampDescLoggedAtDesc();
 
     @Query("""
             SELECT e FROM EventLog e
             WHERE LOWER(e.rawText) LIKE LOWER(CONCAT('%', :q, '%'))
               AND (:eventType IS NULL OR e.eventType = :eventType)
-            ORDER BY e.eventTimestamp DESC, e.createdAt DESC
+            ORDER BY e.eventTimestamp DESC, e.loggedAt DESC
             """)
     List<EventLog> search(@Param("q") String q, @Param("eventType") EventType eventType);
 }

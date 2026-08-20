@@ -1,5 +1,6 @@
 package com.devfuel.log.dto;
 
+import com.devfuel.common.EventTimePrecision;
 import com.devfuel.common.EventType;
 
 import java.time.Instant;
@@ -14,6 +15,11 @@ public record LogItemResponse(
         Map<String, Object> structuredJson,
         String source,
         String parserVersion,
-        String imageRef
+        String imageRef,
+        Instant loggedAt,
+        EventTimePrecision eventTimePrecision,
+        String eventTimezone,
+        boolean backdated,
+        boolean loggedLater
 ) {
 }

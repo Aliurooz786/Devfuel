@@ -1,5 +1,6 @@
 package com.devfuel.log;
 
+import com.devfuel.common.EventTimePrecision;
 import com.devfuel.common.EventType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -27,6 +28,16 @@ public class EventLog {
 
     @Column(name = "event_timestamp", nullable = false)
     private Instant eventTimestamp;
+
+    @Column(name = "logged_at", nullable = false)
+    private Instant loggedAt;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "event_time_precision", nullable = false, length = 16)
+    private EventTimePrecision eventTimePrecision;
+
+    @Column(name = "event_timezone", nullable = false, length = 64)
+    private String eventTimezone;
 
     @Column(name = "raw_text", nullable = false, columnDefinition = "TEXT")
     private String rawText;
@@ -72,6 +83,30 @@ public class EventLog {
 
     public void setEventTimestamp(Instant eventTimestamp) {
         this.eventTimestamp = eventTimestamp;
+    }
+
+    public Instant getLoggedAt() {
+        return loggedAt;
+    }
+
+    public void setLoggedAt(Instant loggedAt) {
+        this.loggedAt = loggedAt;
+    }
+
+    public EventTimePrecision getEventTimePrecision() {
+        return eventTimePrecision;
+    }
+
+    public void setEventTimePrecision(EventTimePrecision eventTimePrecision) {
+        this.eventTimePrecision = eventTimePrecision;
+    }
+
+    public String getEventTimezone() {
+        return eventTimezone;
+    }
+
+    public void setEventTimezone(String eventTimezone) {
+        this.eventTimezone = eventTimezone;
     }
 
     public String getRawText() {
