@@ -1,0 +1,242 @@
+.app {
+  min-height: 100vh;
+  margin: 0;
+  padding: 2.5rem 1.25rem 4rem;
+  font-family: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+  color: #1c1917;
+  background:
+    radial-gradient(ellipse 80% 50% at 10% -10%, rgba(180, 120, 70, 0.18), transparent 55%),
+    radial-gradient(ellipse 70% 45% at 90% 0%, rgba(70, 110, 90, 0.14), transparent 50%),
+    linear-gradient(165deg, #f3eee6 0%, #e7efe8 48%, #dce6ef 100%);
+}
+
+.app__header {
+  max-width: 40rem;
+  margin: 0 auto 2rem;
+}
+
+.app__brand {
+  margin: 0;
+  font-size: clamp(2.75rem, 8vw, 4rem);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+}
+
+.app__tagline {
+  margin: 0.75rem 0 0;
+  font-size: 1.05rem;
+  opacity: 0.72;
+}
+
+.app__compose,
+.app__timeline {
+  max-width: 40rem;
+  margin: 0 auto;
+}
+
+.app__section-title {
+  margin: 2.25rem 0 0.85rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.55;
+  font-weight: 600;
+}
+
+.app__error {
+  margin: 0.75rem 0 0;
+  color: #8b1e1e;
+  font-size: 0.95rem;
+}
+
+.log-input__label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+  opacity: 0.8;
+}
+
+.log-input__row {
+  display: flex;
+  gap: 0.65rem;
+}
+
+.log-input__field {
+  flex: 1;
+  min-width: 0;
+  padding: 0.85rem 1rem;
+  border: 1px solid rgba(28, 25, 23, 0.18);
+  background: rgba(255, 252, 247, 0.85);
+  color: inherit;
+  font: inherit;
+  font-size: 1.05rem;
+}
+
+.log-input__field:focus {
+  outline: 2px solid rgba(70, 110, 90, 0.45);
+  outline-offset: 1px;
+}
+
+.log-input__submit {
+  padding: 0.85rem 1.25rem;
+  border: 1px solid #1c1917;
+  background: #1c1917;
+  color: #f7f3ec;
+  font: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.log-input__submit:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.photo-block {
+  margin-top: 0.85rem;
+}
+
+.photo-block__note-label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-size: 0.95rem;
+  opacity: 0.8;
+}
+
+.photo-block__note {
+  display: block;
+  width: 100%;
+  margin-bottom: 0.65rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid rgba(28, 25, 23, 0.18);
+  background: rgba(255, 252, 247, 0.85);
+  color: inherit;
+  font: inherit;
+  font-size: 1.05rem;
+}
+
+.photo-block__note:focus {
+  outline: 2px solid rgba(70, 110, 90, 0.45);
+  outline-offset: 1px;
+}
+
+.photo-input {
+  display: inline-flex;
+  padding: 0.7rem 1.1rem;
+  border: 1px solid #1c1917;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.photo-input__file {
+  display: none;
+}
+
+.log-item__badge {
+  margin-left: 0.5rem;
+  padding: 0.1rem 0.4rem;
+  border: 1px solid currentColor;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+.log-item__thumb {
+  display: block;
+  margin: 0.55rem 0 0;
+  width: 7.5rem;
+  height: 7.5rem;
+  object-fit: cover;
+  border: 1px solid rgba(28, 25, 23, 0.15);
+}
+
+.timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.timeline__empty {
+  margin: 0;
+  opacity: 0.6;
+}
+
+.log-item {
+  padding: 0.9rem 0;
+  border-bottom: 1px solid rgba(28, 25, 23, 0.12);
+  animation: rise 280ms ease-out;
+}
+
+.log-item__meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.35rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  opacity: 0.62;
+}
+
+.log-item__type {
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.log-item__text {
+  margin: 0;
+  font-size: 1.12rem;
+  line-height: 1.35;
+}
+
+.log-item__structured {
+  margin: 0.35rem 0 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.78rem;
+  opacity: 0.65;
+  word-break: break-word;
+}
+
+.detected-items {
+  margin: 0.65rem 0 0;
+}
+
+.detected-items__title {
+  margin: 0 0 0.3rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.55;
+  font-weight: 600;
+}
+
+.detected-items__list {
+  margin: 0;
+  padding-left: 1.15rem;
+  font-size: 1.02rem;
+  line-height: 1.45;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 560px) {
+  .log-input__row {
+    flex-direction: column;
+  }
+}

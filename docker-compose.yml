@@ -1,0 +1,20 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: devfuel-db
+    environment:
+      POSTGRES_DB: devfuel
+      POSTGRES_USER: devfuel
+      POSTGRES_PASSWORD: devfuel
+    ports:
+      - "5433:5432"
+    volumes:
+      - devfuel_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U devfuel -d devfuel"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  devfuel_pgdata:
