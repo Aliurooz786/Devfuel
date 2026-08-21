@@ -5,6 +5,8 @@ import { dateGroupLabel, localDateKey } from './timelineDisplay'
 interface TimelineProps {
   logs: LogItemResponse[]
   loading?: boolean
+  highlightId?: string | null
+  scrollKey?: number
 }
 
 interface DateGroup {
@@ -13,7 +15,7 @@ interface DateGroup {
   logs: LogItemResponse[]
 }
 
-export function Timeline({ logs, loading }: TimelineProps) {
+export function Timeline({ logs, loading, highlightId, scrollKey }: TimelineProps) {
   if (loading && logs.length === 0) {
     return <p className="timeline__empty">Loading timeline…</p>
   }
@@ -28,10 +30,18 @@ export function Timeline({ logs, loading }: TimelineProps) {
     <div className="timeline">
       {groups.map((group) => (
         <section key={group.key} className="timeline-day" aria-label={group.label}>
-          <h3 className="timeline-day__title">{group.label}</h3>
+          <h3 className="timeline-day__title">
+            {group.label}
+            <span className="timeline-day__count">{group.logs.length}</span>
+          </h3>
           <ul className="timeline-day__list">
             {group.logs.map((log) => (
-              <LogListItem key={log.id} log={log} />
+              <LogListItem
+                key={log.id}
+                log={log}
+                highlighted={log.id === highlightId}
+                scrollKey={scrollKey}
+              />
             ))}
           </ul>
         </section>

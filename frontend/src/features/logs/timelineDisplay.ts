@@ -48,6 +48,18 @@ export function formatEventTimeLabel(
   return formatDateTime(timestamp)
 }
 
+/** Short "where did this land" phrase, e.g. "Yesterday · Night". */
+export function describeOccurrence(
+  timestamp: string,
+  precision: EventTimePrecision | null | undefined
+): string {
+  const day = dateGroupLabel(localDateKey(timestamp))
+  if (precision === 'PERIOD') {
+    return `${day} · ${periodLabel(timestamp)}`
+  }
+  return day
+}
+
 export function periodLabel(timestamp: string): string {
   const hour = localHour(timestamp)
   if (PERIOD_BY_HOUR[hour]) {

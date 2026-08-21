@@ -1,12 +1,17 @@
+import { useEffect, useRef } from 'react'
 import type { LogItemResponse } from '../../types/log'
 import { detectedFoodItems } from './detectedFoodItems'
 import { formatEventTimeLabel } from './timelineDisplay'
 
 interface LogListItemProps {
   log: LogItemResponse
+  highlighted?: boolean
+  /** Changing this value while highlighted scrolls the entry into view. */
+  scrollKey?: number
 }
 
-export function LogListItem({ log }: LogListItemProps) {
+export function LogListItem({ log, highlighted, scrollKey }: LogListItemProps) {
+  const ref = useRef<HTMLLIElement>(null)
   const timeLabel = formatEventTimeLabel(log.timestamp, log.eventTimePrecision)
   const hasPhoto = Boolean(log.imageRef)
   const items = detectedFoodItems(log)
@@ -14,8 +19,15 @@ export function LogListItem({ log }: LogListItemProps) {
     items.length === 0 && Object.keys(log.structuredJson ?? {}).length > 0 && !hasPhoto
   const structured = showJson ? JSON.stringify(log.structuredJson) : null
 
+  useEffect(() => {
+    if (!highlighted || scrollKey == null) {
+      return
+    }
+    ref.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+  }, [highlighted, scrollKey])
+
   return (
-    <li className="log-item">
+    <li ref={ref} className={`log-item${highlighted ? ' log-item--highlighted' : ''}`}>
       <div className="log-item__meta">
         <span className="log-item__type">
           {log.eventType}

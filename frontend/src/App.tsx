@@ -1,10 +1,17 @@
 import { useCallback, useEffect, useState } from 'react'
 import './App.css'
 import { createImageLog, createLog, getTimeline } from './api/logsApi'
+import { BackdatedNotice } from './features/logs/BackdatedNotice'
 import { LogInput } from './features/logs/LogInput'
 import { PhotoInput } from './features/logs/PhotoInput'
 import { Timeline } from './features/logs/Timeline'
-import type { LogItemResponse } from './types/log'
+import { describeOccurrence } from './features/logs/timelineDisplay'
+import type { CreateLogResponse, LogItemResponse } from './types/log'
+
+interface BackdatedPlacement {
+  id: string
+  placement: string
+}
 
 function App() {
   const [message, setMessage] = useState('')
@@ -13,10 +20,23 @@ function App() {
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [photoNote, setPhotoNote] = useState('')
+  const [backdated, setBackdated] = useState<BackdatedPlacement | null>(null)
+  const [scrollKey, setScrollKey] = useState<number | undefined>(undefined)
 
   const refreshTimeline = useCallback(async () => {
     const timeline = await getTimeline()
     setLogs(timeline)
+  }, [])
+
+  const noteBackdated = useCallback((created: CreateLogResponse) => {
+    if (!created.loggedLater) {
+      setBackdated(null)
+      return
+    }
+    setBackdated({
+      id: created.id,
+      placement: describeOccurrence(created.timestamp, created.eventTimePrecision),
+    })
   }, [])
 
   useEffect(() => {
@@ -51,8 +71,9 @@ function App() {
     setSubmitting(true)
     setError(null)
     try {
-      await createImageLog(file, 'web', photoNote)
+      const created = await createImageLog(file, 'web', photoNote)
       setPhotoNote('')
+      noteBackdated(created)
       await refreshTimeline()
     } catch {
       setError('Could not save photo log. Try again.')
@@ -65,8 +86,9 @@ function App() {
     setSubmitting(true)
     setError(null)
     try {
-      await createLog({ message: message.trim(), source: 'web' })
+      const created = await createLog({ message: message.trim(), source: 'web' })
       setMessage('')
+      noteBackdated(created)
       await refreshTimeline()
     } catch {
       setError('Could not save log. Try again.')
@@ -99,12 +121,24 @@ function App() {
             void handleImage(file)
           }}
         />
+        {backdated ? (
+          <BackdatedNotice
+            placement={backdated.placement}
+            onShow={() => setScrollKey((key) => (key ?? 0) + 1)}
+            onDismiss={() => setBackdated(null)}
+          />
+        ) : null}
         {error ? <p className="app__error">{error}</p> : null}
       </section>
 
       <section className="app__timeline" aria-label="Timeline">
         <h2 className="app__section-title">Timeline</h2>
-        <Timeline logs={logs} loading={loading} />
+        <Timeline
+          logs={logs}
+          loading={loading}
+          highlightId={backdated?.id ?? null}
+          scrollKey={scrollKey}
+        />
       </section>
     </main>
   )

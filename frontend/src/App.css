@@ -178,10 +178,72 @@
   font-weight: 600;
 }
 
+.timeline-day__count {
+  margin-left: 0.45rem;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.7;
+}
+
+.timeline-day__count::before {
+  content: '(';
+}
+
+.timeline-day__count::after {
+  content: ')';
+}
+
 .timeline-day__list {
   list-style: none;
   margin: 0;
   padding: 0;
+}
+
+.backdated-notice {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.75rem 0 0;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid rgba(120, 84, 48, 0.45);
+  background: rgba(214, 178, 128, 0.14);
+  color: #5a3d21;
+  font-size: 0.95rem;
+}
+
+.backdated-notice__text {
+  flex: 1;
+}
+
+.backdated-notice__action {
+  border: 1px solid currentColor;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 0.85rem;
+  padding: 0.2rem 0.6rem;
+  cursor: pointer;
+}
+
+.backdated-notice__dismiss {
+  border: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 1.1rem;
+  line-height: 1;
+  padding: 0 0.2rem;
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+.backdated-notice__dismiss:hover {
+  opacity: 1;
+}
+
+.log-item--highlighted {
+  background: rgba(214, 178, 128, 0.18);
+  box-shadow: inset 3px 0 0 rgba(120, 84, 48, 0.6);
+  padding-left: 0.7rem;
 }
 
 .timeline__empty {
