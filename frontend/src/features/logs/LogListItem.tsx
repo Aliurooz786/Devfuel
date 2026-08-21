@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import type { LogItemResponse } from '../../types/log'
 import { detectedFoodItems } from './detectedFoodItems'
 import { formatEventTimeLabel } from './timelineDisplay'
+import { formatKg, weightKgFromLog } from '../weight/weightDisplay'
 
 interface LogListItemProps {
   log: LogItemResponse
@@ -15,8 +16,12 @@ export function LogListItem({ log, highlighted, scrollKey }: LogListItemProps) {
   const timeLabel = formatEventTimeLabel(log.timestamp, log.eventTimePrecision)
   const hasPhoto = Boolean(log.imageRef)
   const items = detectedFoodItems(log)
+  const weightKg = weightKgFromLog(log)
   const showJson =
-    items.length === 0 && Object.keys(log.structuredJson ?? {}).length > 0 && !hasPhoto
+    weightKg == null &&
+    items.length === 0 &&
+    Object.keys(log.structuredJson ?? {}).length > 0 &&
+    !hasPhoto
   const structured = showJson ? JSON.stringify(log.structuredJson) : null
 
   useEffect(() => {
@@ -41,6 +46,7 @@ export function LogListItem({ log, highlighted, scrollKey }: LogListItemProps) {
         </time>
       </div>
       <p className="log-item__text">{log.rawText}</p>
+      {weightKg != null ? <p className="log-item__weight">{formatKg(weightKg)}</p> : null}
       {hasPhoto ? (
         <img
           className="log-item__thumb"
