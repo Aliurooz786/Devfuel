@@ -199,7 +199,7 @@ public class LogService {
         return Duration.between(event.getEventTimestamp(), event.getLoggedAt()).abs().compareTo(LIVE_LOG_SLOP) > 0;
     }
 
-    static boolean isLoggedLater(EventLog event) {
+    public static boolean isLoggedLater(EventLog event) {
         if (event.getEventTimestamp() == null || event.getLoggedAt() == null) {
             return false;
         }

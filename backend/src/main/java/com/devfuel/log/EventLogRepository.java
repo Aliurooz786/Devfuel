@@ -12,6 +12,10 @@ public interface EventLogRepository extends JpaRepository<EventLog, UUID> {
 
     List<EventLog> findAllByOrderByEventTimestampDescLoggedAtDesc();
 
+    List<EventLog> findByEventTypeOrderByEventTimestampDescLoggedAtDesc(EventType eventType);
+
+    List<EventLog> findByEventTypeOrderByEventTimestampAscLoggedAtAsc(EventType eventType);
+
     @Query("""
             SELECT e FROM EventLog e
             WHERE LOWER(e.rawText) LIKE LOWER(CONCAT('%', :q, '%'))
